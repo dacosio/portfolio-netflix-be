@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const authRoute = require("./routes/auth")
 const userRoute = require("./routes/users")
+const movieRoute = require("./routes/movies")
+const listRoute = require("./routes/lists")
 
 dotenv.config();
 
@@ -19,16 +21,10 @@ mongoose.connect(process.env.MONGO_URL,{
 
 
 app.use('/api/auth', authRoute)
-// app.use(require('./routes/tokenChecker'))
-
 app.use('/api/users', userRoute)
+app.use('/api/movies', movieRoute)
+app.use('/api/lists', listRoute)
 
-
-app.post('/secure', (req,res) => {
-  // all secured routes goes here
-  console.log(req.body)
-  res.send('I am secured...')
-})
 
 const port = 8080
 app.listen(port, () => {
